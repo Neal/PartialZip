@@ -7,23 +7,23 @@ using RemoteZip;
 
 namespace PartialZip
 {
-    class Program
-    {
-        public static void CopyStream(Stream input, Stream output)
-        {
-            int num = 0;
-            byte[] buffer = new byte[0x2000];
-            while (InlineAssignHelper<int>(ref num, input.Read(buffer, 0, buffer.Length)) > 0)
-            {
-                output.Write(buffer, 0, num);
-            }
-        }
+	class Program
+	{
+		public static void CopyStream(Stream input, Stream output)
+		{
+			int num = 0;
+			byte[] buffer = new byte[0x2000];
+			while (InlineAssignHelper<int>(ref num, input.Read(buffer, 0, buffer.Length)) > 0)
+			{
+				output.Write(buffer, 0, num);
+			}
+		}
 
-        private static T InlineAssignHelper<T>(ref T target, T value)
-        {
-            target = value;
-            return value;
-        }
+		private static T InlineAssignHelper<T>(ref T target, T value)
+		{
+			target = value;
+			return value;
+		}
 
 		public static bool DownloadFileFromZip(string ZipURL, string FilePathInZip, string LocalPath)
 		{
@@ -68,15 +68,15 @@ namespace PartialZip
 			return false;
 		}
 
-        static void Main(string[] args)
-        {
-            string CurrentProcessName = Path.GetFileName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
+		static void Main(string[] args)
+		{
+			string CurrentProcessName = Path.GetFileName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
 
-            if (args.Length != 3)
-            {
+			if (args.Length != 3)
+			{
 				Console.WriteLine("Usage: {0} <ZipURL> <ZipFilePath> <LocalFilePath>", CurrentProcessName);
-                Environment.Exit(1);
-            }
+				Environment.Exit(1);
+			}
 
 			if (!isURLValid(args[0]))
 			{
@@ -84,9 +84,9 @@ namespace PartialZip
 				Environment.Exit(2);
 			}
 
-            Console.Error.Write("Downloading {0}...", Path.GetFileName(args[1]));
+			Console.Error.Write("Downloading {0}...", Path.GetFileName(args[1]));
 			Console.Error.WriteLine(DownloadFileFromZip(args[0], args[1], args[2]) ? "   Done!" : "   Remote file not found!");
-            Environment.Exit(0);
-        }
-    }
+			Environment.Exit(0);
+		}
+	}
 }
